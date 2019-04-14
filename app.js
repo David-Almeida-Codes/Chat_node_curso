@@ -17,6 +17,7 @@ io.on('connection', (socket) =>{
          console.log('Usuario deslogado');
      })
 
+     //create a dialog
      socket.on('msgParaServidor', (data)=>{
         socket.emit('msgParaCliente', {apelido : data.apelido, mensagem : data.mensagem})
      })
@@ -24,5 +25,18 @@ io.on('connection', (socket) =>{
      socket.broadcast.on('msgParaServidor', (data)=>{
         socket.emit('msgParaCliente', {apelido : data.apelido, mensagem : data.mensagem})
      })
+
+     //update attendees
+     //if(parseInt(data.apelido_atualizado_nos_clientes) == 0){
+        socket.on('participanteParaCliente', (data)=>{
+            socket.emit('msgParaCliente', {apelido : data.apelido, mensagem : data.mensagem})
+        })
+
+        socket.broadcast.on('participanteParaCliente', (data)=>{
+            socket.emit('msgParaCliente', {apelido : data.apelido, mensagem : data.mensagem})
+        })
+   // }
+
      
+
 })
